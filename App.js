@@ -9,7 +9,7 @@ import { ThemeProvider } from "styled-components/native";
 import { useColorScheme } from "react-native";
 import { darkTheme, lightTheme } from "./styled";
 import * as SplashScreen from "expo-splash-screen";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,7 +24,7 @@ export default function App() {
     return null;
   }
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient} contextSharing={true}>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <NavigationContainer>
           <Root />

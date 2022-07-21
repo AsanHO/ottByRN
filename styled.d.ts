@@ -8,3 +8,4 @@ declare module "styled-components" {
     textColor: string;
   }
 }
+import "react-query";

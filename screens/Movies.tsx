@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
 import { ActivityIndicator, Dimensions, FlatList, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import Slide from "../components/Slide";
 import Poster from "../components/Poster";
 import HMedia from "../components/HMedia";
@@ -46,17 +46,18 @@ const HSeparator = styled.View`
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { isLoading: nowPlayingLoading, data: nowPlayingData } = useQuery(
-    "nowPlaying",
+    ["nowPlaying"],
     moviesApi.nowPlaying
   );
   const { isLoading: upcomingLoading, data: upcomingData } = useQuery(
-    "upcoming",
+    ["upcoming"],
     moviesApi.upcoming
   );
   const { isLoading: trendingLoading, data: trendingData } = useQuery(
-    "trending",
+    ["trending"],
     moviesApi.trending
   );
+
   const onRefresh = async () => {};
   const renderVMedia = ({ item }) => (
     <VMedia
