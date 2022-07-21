@@ -8,6 +8,12 @@ import Root from "./navigation/Root";
 import { ThemeProvider } from "styled-components/native";
 import { useColorScheme } from "react-native";
 import { darkTheme, lightTheme } from "./styled";
+import * as SplashScreen from "expo-splash-screen";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const [assets] = useAssets([require("./preview.png")]);
@@ -15,13 +21,15 @@ export default function App() {
   const isDark = useColorScheme() === "dark";
   console.log(isDark);
   if (!assets || !loaded) {
-    return <AppLoading />;
+    return null;
   }
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <NavigationContainer>
-        <Root />
-      </NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
