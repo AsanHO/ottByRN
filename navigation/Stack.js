@@ -1,7 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Text, View, TouchableOpacity } from "react-native";
-import Search from "../screens/Search";
 
 const NativeStack = createNativeStackNavigator();
 
