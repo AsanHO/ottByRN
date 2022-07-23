@@ -51,6 +51,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
     isRefetching: isRefetchingUpcoming,
     hasNextPage,
     fetchNextPage,
+    isFetchingNextPage,
   } = useInfiniteQuery(["movies", "upcoming"], moviesApi.upcoming, {
     getNextPageParam: (currentPage) => {
       const nextPage = currentPage.page + 1;
@@ -76,14 +77,17 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       fetchNextPage();
     }
   };
+  const renderFooterComponent = (IsFetchingNextPage) =>
+    IsFetchingNextPage ? <Loader /> : null;
   return loading ? (
     <Loader />
   ) : upcomingData ? (
     <FlatList
       onEndReached={loadMore}
-      onEndReachedThreshold={0.4}
+      onEndReachedThreshold={2}
       onRefresh={onRefresh}
       refreshing={refreshing}
+      ListFooterComponent={renderFooterComponent}
       ListHeaderComponent={
         <>
           <Swiper
