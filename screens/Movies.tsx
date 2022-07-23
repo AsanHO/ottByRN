@@ -58,7 +58,6 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
       return nextPage > currentPage.total_pages ? null : nextPage;
     },
   });
-  console.log(upcomingData);
   const {
     isLoading: trendingLoading,
     data: trendingData,
